@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+ENV/
+.env
+
+# Django
+db.sqlite3
+db.sqlite3-journal
+media/
+staticfiles/
+
+# IDEs
+.vscode/
+.idea/
+
+# Database / SQL (Optional)
+# If you want to keep the .sql scripts in Git, don't ignore them. 
+# But ignore any temporary export files.
+*.log
+*.bak
+
+# Docker
+.docker/
