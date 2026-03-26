@@ -9,7 +9,6 @@ from .models import (
 )
 
 class AwardSerializer(serializers.ModelSerializer):
-    # This pulls the actual name of the Alumnus for the award
     alumni_name = serializers.ReadOnlyField(source='alumniid.firstname')
     
     class Meta:
@@ -33,18 +32,26 @@ class EventParticipationSerializer(serializers.ModelSerializer):
         fields = ['participationid', 'role', 'alumniid', 'alumni_name', 'eventid', 'event_name']
 
 class AlumniSerializer(serializers.ModelSerializer):
-    # This is an "Advanced Feature": It lists all awards belonging to this person
+    # Added 'awards_set' source - usually Django's default related_name is lowercase modelname_set
     awards = AwardSerializer(many=True, read_only=True, source='awards_set')
     
     class Meta:
         model = Alumnidetails
         fields = [
-            'alumniid', 'firstname', 'lastname', 'gender', 
-            'graduationyear', 'degree', 'email', 'phone', 'awards'
+            'alumniid', 
+            'registration_number', # CRITICAL: Added for verification logic
+            'firstname', 
+            'lastname', 
+            'gender', 
+            'graduationyear', 
+            'degree', 
+            'email', 
+            'phone', 
+            'isverified',          # CRITICAL: Added to check status in React
+            'awards'
         ]
 
 class EventSerializer(serializers.ModelSerializer):
-    # Shows the total money raised for this specific event
     total_donations = serializers.SerializerMethodField()
 
     class Meta:
@@ -52,7 +59,6 @@ class EventSerializer(serializers.ModelSerializer):
         fields = ['eventid', 'eventname', 'eventtype', 'eventdate', 'location', 'total_donations']
 
     def get_total_donations(self, obj):
-        # This matches your SQL Complex Query for total donations per event
         from django.db.models import Sum
         total = Donations.objects.filter(eventid=obj).aggregate(Sum('amount'))['amount__sum']
         return total if total else 0

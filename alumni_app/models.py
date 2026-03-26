@@ -26,6 +26,7 @@ class Alumnidetails(models.Model):
     class Meta:
         managed = False  
         db_table = 'AlumniDetails'
+        verbose_name_plural = "Alumni Details"
 
 
 class Alumniprograms(models.Model):
@@ -37,8 +38,9 @@ class Alumniprograms(models.Model):
     description = models.TextField(db_column='Description', db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)  # Field name made lowercase. This field type is a guess.
 
     class Meta:
-        managed = True
+        managed = False
         db_table = 'AlumniPrograms'
+        verbose_name_plural = "Alumni Programs"
 
 
 class Awards(models.Model):
@@ -48,8 +50,9 @@ class Awards(models.Model):
     alumniid = models.ForeignKey(Alumnidetails, models.DO_NOTHING, db_column='AlumniID', blank=True, null=True)  # Field name made lowercase.
 
     class Meta:
-        managed = True
+        managed = False
         db_table = 'Awards'
+        verbose_name_plural = "Awards"
 
 
 class Collaborationactivities(models.Model):
@@ -60,7 +63,7 @@ class Collaborationactivities(models.Model):
     description = models.TextField(db_column='Description', db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)  # Field name made lowercase. This field type is a guess.
 
     class Meta:
-        managed = True
+        managed = False
         db_table = 'CollaborationActivities'
 
 
@@ -72,8 +75,10 @@ class Donations(models.Model):
     donationdate = models.DateField(db_column='DonationDate', blank=True, null=True)  # Field name made lowercase.
 
     class Meta:
-        managed = True
+        managed = False
         db_table = 'Donations'
+        verbose_name_plural = "Donations"
+        
 
 
 class Eventparticipation(models.Model):
@@ -83,8 +88,9 @@ class Eventparticipation(models.Model):
     role = models.CharField(db_column='Role', max_length=50, db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)  # Field name made lowercase.
 
     class Meta:
-        managed = True
+        managed = False
         db_table = 'EventParticipation'
+        verbose_name_plural = "Event Participation"
 
 
 class Events(models.Model):
@@ -95,8 +101,9 @@ class Events(models.Model):
     location = models.CharField(db_column='Location', max_length=100, db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)  # Field name made lowercase.
 
     class Meta:
-        managed = True
+        managed = False
         db_table = 'Events'
+        verbose_name_plural = "Events"
 
 
 class Externalinstitutions(models.Model):
@@ -108,7 +115,7 @@ class Externalinstitutions(models.Model):
     email = models.CharField(db_column='Email', max_length=100, db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)  # Field name made lowercase.
 
     class Meta:
-        managed = True
+        managed = False
         db_table = 'ExternalInstitutions'
 
 
@@ -119,5 +126,25 @@ class Programparticipation(models.Model):
     role = models.CharField(db_column='Role', max_length=50, db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)  # Field name made lowercase.
 
     class Meta:
-        managed = True
+        managed = False
         db_table = 'ProgramParticipation'
+
+from django.conf import settings
+from django.db import models
+
+class AlumniProfile(models.Model):
+    # Link to the standard Django User (username, password, email)
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='profile')
+    
+    # Link to your SQL Server Alumni Record
+    alumni_record = models.OneToOneField('Alumnidetails', on_delete=models.SET_NULL, null=True, blank=True)
+    
+    # The "Verification" switch
+    is_verified_profile = models.BooleanField(default=False)
+    date_verified = models.DateTimeField(auto_now_add=True, null=True)
+
+    def __str__(self):
+        return f"Profile for {self.user.username} (Verified: {self.is_verified_profile})"
+    
+    class Meta:
+        verbose_name_plural = "Alumni Profiles"
