@@ -9,19 +9,22 @@ from django.db import models
 
 
 class Alumnidetails(models.Model):
-    alumniid = models.AutoField(db_column='AlumniID', primary_key=True)  # Field name made lowercase.
-    firstname = models.CharField(db_column='FirstName', max_length=50, db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)  # Field name made lowercase.
-    lastname = models.CharField(db_column='LastName', max_length=50, db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)  # Field name made lowercase.
-    gender = models.CharField(db_column='Gender', max_length=10, db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)  # Field name made lowercase.
-    dateofbirth = models.DateField(db_column='DateOfBirth', blank=True, null=True)  # Field name made lowercase.
-    graduationyear = models.IntegerField(db_column='GraduationYear', blank=True, null=True)  # Field name made lowercase.
-    degree = models.CharField(db_column='Degree', max_length=100, db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)  # Field name made lowercase.
-    email = models.CharField(db_column='Email', max_length=100, db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)  # Field name made lowercase.
-    phone = models.CharField(db_column='Phone', max_length=20, db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)  # Field name made lowercase.
-    chapterid = models.IntegerField(db_column='ChapterID', blank=True, null=True)  # Field name made lowercase.
+    alumniid = models.AutoField(db_column='AlumniID', primary_key=True)
+    registration_number = models.CharField(db_column='RegistrationNumber', max_length=50, unique=True, blank=True, null=True)
+    firstname = models.CharField(db_column='FirstName', max_length=50, blank=True, null=True)
+    lastname = models.CharField(db_column='LastName', max_length=50, blank=True, null=True)
+    gender = models.CharField(db_column='Gender', max_length=10, blank=True, null=True)
+    dateofbirth = models.DateField(db_column='DateOfBirth', blank=True, null=True)
+    graduationyear = models.IntegerField(db_column='GraduationYear', blank=True, null=True)
+    degree = models.CharField(db_column='Degree', max_length=100, blank=True, null=True)
+    email = models.CharField(db_column='Email', max_length=100, blank=True, null=True)
+    phone = models.CharField(db_column='Phone', max_length=20, blank=True, null=True)
+    chapterid = models.IntegerField(db_column='ChapterID', blank=True, null=True)
+    
+    isverified = models.BooleanField(db_column='IsVerified', default=False, blank=True, null=True)
 
     class Meta:
-        managed = True
+        managed = False  
         db_table = 'AlumniDetails'
 
 

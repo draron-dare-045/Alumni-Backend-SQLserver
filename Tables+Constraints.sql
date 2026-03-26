@@ -2,15 +2,18 @@ USE Alumnidb;
 --Tables And Constraints
 CREATE TABLE AlumniDetails (
     AlumniID INT PRIMARY KEY IDENTITY(1,1),
+    RegistrationNumber VARCHAR(50) UNIQUE NOT NULL,
     FirstName VARCHAR(50),
     LastName VARCHAR(50),
     Gender VARCHAR(10),
     DateOfBirth DATE,
     GraduationYear INT,
     Degree VARCHAR(100),
-    Email VARCHAR(100),
+    Email VARCHAR(100) UNIQUE,
     Phone VARCHAR(20),
-    ChapterID INT
+    ChapterID INT,
+
+    IsVerified BIT DEFAULT 0,
 );
 
 CREATE TABLE Awards (

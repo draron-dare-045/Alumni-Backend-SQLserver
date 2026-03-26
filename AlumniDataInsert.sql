@@ -2,22 +2,23 @@ USE Alumnidb;
 GO
 
 INSERT INTO AlumniDetails
-(FirstName, Lastname, Gender, Dateofbirth, GraduationYear, Degree, Email, Phone, ChapterId)
+(RegistrationNumber, FirstName, Lastname, Gender, Dateofbirth, GraduationYear, Degree, Email, Phone, ChapterId)
 VALUES
-('John','Mwangi','Male','1992-08-22',2016,'Information Technology','john@gmail.com','0723457890', 1),
-('Faith','Buyale','Female','2001-01-01',2025,'Bachelor of Commerce','fbuyale@gmail.com','0134526772',3),
-('Mary', 'Mutheu', 'Female', '2000-03-10', 2024, 'Software Engineering', 'mary@gmail.com', '0734567890', 2),
-('David', 'Otieno', 'Male', '1996-11-05', 2020, 'Actuarial Science', 'david@mail.com', '0745678901', 6),
-('Alice','Abdul','Female','1999-05-04',2021,'Political Science','aliceabdul@gmail.com','0722334455',4),
-('Peter','Roberts','Male','1991-12-25',2015,'Civil Engineering','roberts@gmail.com','0709876543',5),
-('James','Kamau','Male','1993-07-15',2017,'Mechanical Engineering','jkamau@gmail.com','0721123344',2),
-('Grace','Wanjiku','Female','1995-02-28',2019,'Economics','gracew@gmail.com','0732211455',1),
-('Brian','Njoroge','Male','1998-10-12',2022,'Computer Science','bnjoroge@gmail.com','0712345566',3),
-('Linda','Chebet','Female','2000-06-05',2023,'Medicine','lchebet@gmail.com','0729988776',4),
-('Samuel','Odhiambo','Male','1997-11-30',2021,'Architecture','sodhiambo@gmail.com','0701234432',5),
-('Patricia','Nyambura','Female','1999-09-18',2022,'Law','pnyambura@gmail.com','0745566778',6);
+('SCS3/2496/2016', 'John','Mwangi','Male','1992-08-22',2016,'Computer Science','john@gmail.com','0723457890', 1),
+('BML/4021/2025', 'Faith','Buyale','Female','2001-01-01',2025,'Bachelor of Commerce','fbuyale@gmail.com','0134526772',3),
+('SCS3/5521/2024', 'Mary', 'Mutheu', 'Female', '2000-03-10', 2024, 'Computer Science', 'mary@gmail.com', '0734567890', 2),
+('ACT/9901/2020', 'David', 'Otieno', 'Male', '1996-11-05', 2020, 'Actuarial Science', 'david@mail.com', '0745678901', 6),
+('POL/2210/2021', 'Alice','Abdul','Female','1999-05-04',2021,'Political Science','aliceabdul@gmail.com','0722334455',4),
+('FCE/1102/2015', 'Peter','Roberts','Male','1991-12-25',2015,'Civil Engineering','roberts@gmail.com','0709876543',5),
+('FME/0092/2017', 'James','Kamau','Male','1993-07-15',2017,'Mechanical Engineering','jkamau@gmail.com','0721123344',2),
+('ECO/8821/2019', 'Grace','Wanjiku','Female','1995-02-28',2019,'Economics','gracew@gmail.com','0732211455',1),
+('SCS3/1111/2022', 'Brian','Njoroge','Male','1998-10-12',2022,'Computer Science','bnjoroge@gmail.com','0712345566',3),
+('MED/4432/2023', 'Linda','Chebet','Female','2000-06-05',2023,'Medicine','lchebet@gmail.com','0729988776',4),
+('ARC/7765/2021', 'Samuel','Odhiambo','Male','1997-11-30',2021,'Architecture','sodhiambo@gmail.com','0701234432',5),
+('LAW/5543/2022', 'Patricia','Nyambura','Female','1999-09-18',2022,'Law','pnyambura@gmail.com','0745566778',6);
+
 SELECT * FROM AlumniDetails;
-GO 
+GO
 
 
 INSERT INTO Awards 
