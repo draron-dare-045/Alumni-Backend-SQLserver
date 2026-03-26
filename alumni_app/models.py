@@ -21,7 +21,7 @@ class Alumnidetails(models.Model):
     chapterid = models.IntegerField(db_column='ChapterID', blank=True, null=True)  # Field name made lowercase.
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'AlumniDetails'
 
 
@@ -34,7 +34,7 @@ class Alumniprograms(models.Model):
     description = models.TextField(db_column='Description', db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)  # Field name made lowercase. This field type is a guess.
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'AlumniPrograms'
 
 
@@ -45,7 +45,7 @@ class Awards(models.Model):
     alumniid = models.ForeignKey(Alumnidetails, models.DO_NOTHING, db_column='AlumniID', blank=True, null=True)  # Field name made lowercase.
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'Awards'
 
 
@@ -57,7 +57,7 @@ class Collaborationactivities(models.Model):
     description = models.TextField(db_column='Description', db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)  # Field name made lowercase. This field type is a guess.
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'CollaborationActivities'
 
 
@@ -69,7 +69,7 @@ class Donations(models.Model):
     donationdate = models.DateField(db_column='DonationDate', blank=True, null=True)  # Field name made lowercase.
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'Donations'
 
 
@@ -80,7 +80,7 @@ class Eventparticipation(models.Model):
     role = models.CharField(db_column='Role', max_length=50, db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)  # Field name made lowercase.
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'EventParticipation'
 
 
@@ -92,7 +92,7 @@ class Events(models.Model):
     location = models.CharField(db_column='Location', max_length=100, db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)  # Field name made lowercase.
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'Events'
 
 
@@ -105,7 +105,7 @@ class Externalinstitutions(models.Model):
     email = models.CharField(db_column='Email', max_length=100, db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)  # Field name made lowercase.
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'ExternalInstitutions'
 
 
@@ -116,5 +116,5 @@ class Programparticipation(models.Model):
     role = models.CharField(db_column='Role', max_length=50, db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)  # Field name made lowercase.
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'ProgramParticipation'
