@@ -1,10 +1,9 @@
 services:
   - type: web
     name: alumni-backend
-    runtime: python
+    runtime: docker  # This tells Render to look for your Dockerfile
     plan: free
     region: oregon
-    # Environment Variables defined here to ensure the correct Python version
     envVars:
       - key: PYTHON_VERSION
         value: 3.9.18
@@ -12,7 +11,6 @@ services:
         value: "True"
       - key: ALLOWED_HOSTS
         value: "*"
-    # The build script installs the driver and prepares the environment
     buildCommand: |
       # 1. Update pip and force install setuptools into the environment
       pip install --upgrade pip setuptools wheel
