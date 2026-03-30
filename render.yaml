@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: alumni-backend
+    runtime: python
+    plan: free
+    region: oregon
+    # Use a build script to install the Microsoft ODBC Driver 18
+    buildCommand: |
+      curl https://packages.microsoft.com/keys/microsoft.asc | sudo tee /etc/apt/trusted.gpg.d/microsoft.asc
+      curl https://packages.microsoft.com/config/debian/11/prod.list | sudo tee /etc/apt/sources.list.d/mssql-release.list
+      sudo apt-get update
+      sudo ACCEPT_EULA=Y apt-get install -y msodbcsql18
+      pip install -r requirements.txt
+      python manage.py collectstatic --no-input
+    startCommand: gunicorn alumni_system.wsgi:application
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.9.18
+      - key: DEBUG
+        value: "True" # Keep True for now to see errors if connection fails
+      - key: ALLOWED_HOSTS
+        value: "*"

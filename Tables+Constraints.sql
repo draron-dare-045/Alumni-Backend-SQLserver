@@ -86,3 +86,19 @@ CREATE TABLE CollaborationActivities (
     Description TEXT,
     FOREIGN KEY (InstitutionID) REFERENCES ExternalInstitutions(InstitutionID)
 );
+
+CREATE TABLE AlumniProfile (
+    id INT IDENTITY(1,1) PRIMARY KEY,
+    user_id INT NOT NULL,
+    alumni_record_id INT NULL,
+    is_verified_profile BIT DEFAULT 0,
+    date_verified DATETIME2 DEFAULT GETDATE(),
+    
+    -- Constraint to Django's built-in User table
+    CONSTRAINT FK_AlumniProfile_User FOREIGN KEY (user_id) 
+        REFERENCES auth_user(id) ON DELETE CASCADE,
+    
+    -- Constraint to your custom AlumniDetails table
+    CONSTRAINT FK_AlumniProfile_AlumniDetails FOREIGN KEY (alumni_record_id) 
+        REFERENCES AlumniDetails(AlumniID) ON DELETE SET NULL
+);

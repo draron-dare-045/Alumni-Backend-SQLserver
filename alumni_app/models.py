@@ -132,13 +132,11 @@ from django.conf import settings
 from django.db import models
 
 class AlumniProfile(models.Model):
-    # Link to the standard Django User (username, password, email)
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='profile')
     
-    # Link to your SQL Server Alumni Record
+    # Use the string name 'Alumnidetails' to match your class exactly
     alumni_record = models.OneToOneField('Alumnidetails', on_delete=models.SET_NULL, null=True, blank=True)
     
-    # The "Verification" switch
     is_verified_profile = models.BooleanField(default=False)
     date_verified = models.DateTimeField(auto_now_add=True, null=True)
 
@@ -146,4 +144,6 @@ class AlumniProfile(models.Model):
         return f"Profile for {self.user.username} (Verified: {self.is_verified_profile})"
     
     class Meta:
+        # managed = True (Default) - Django will create this table
+        db_table = 'AlumniProfile' # Explicitly naming it helps SQL Server
         verbose_name_plural = "Alumni Profiles"

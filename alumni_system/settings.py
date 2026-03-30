@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure--chxqeiptd!oltdk1!jodzz@_!pw0kj9pin-+ke1a5&sbgb0xs
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -55,12 +55,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",
-    "http://localhost:5173",
-    "http://127.0.0.1:3000",
-]
-
+CORS_ALLOW_ALL_ORIGINS = True
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
@@ -105,14 +100,15 @@ WSGI_APPLICATION = 'alumni_system.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'mssql',
-        'NAME': 'Alumnidb',
-        'USER': 'sa',
-        'PASSWORD': '@Ar0n2006',
-        'HOST': 'localhost',
+        'NAME': 'AlumniDB',
+        'USER': 'Alumni_Admin',
+        'PASSWORD': '@Ar0n2006', 
+        'HOST': 'uon-alumni-server-2026.database.windows.net',
         'PORT': '1433',
         'OPTIONS': {
             'driver': 'ODBC Driver 18 for SQL Server',
-            'extra_params': 'Encrypt=no;TrustServerCertificate=yes',
+            'extra_params': 'Encrypt=yes;TrustServerCertificate=yes', 
+            'connection_timeout': 30,
         },
     }
 }
