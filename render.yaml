@@ -4,19 +4,26 @@ services:
     runtime: python
     plan: free
     region: oregon
-    # Use a build script to install the Microsoft ODBC Driver 18
-    buildCommand: |
-      curl https://packages.microsoft.com/keys/microsoft.asc | sudo tee /etc/apt/trusted.gpg.d/microsoft.asc
-      curl https://packages.microsoft.com/config/debian/11/prod.list | sudo tee /etc/apt/sources.list.d/mssql-release.list
-      sudo apt-get update
-      sudo ACCEPT_EULA=Y apt-get install -y msodbcsql18
-      pip install -r requirements.txt
-      python manage.py collectstatic --no-input
-    startCommand: gunicorn alumni_system.wsgi:application
+    # Environment Variables defined here to ensure the correct Python version
     envVars:
       - key: PYTHON_VERSION
         value: 3.9.18
       - key: DEBUG
-        value: "True" # Keep True for now to see errors if connection fails
+        value: "True"
       - key: ALLOWED_HOSTS
         value: "*"
+    # The build script installs the driver and prepares the environment
+    buildCommand: |
+      # 1. Update build tools first to prevent "BackendUnavailable"
+      pip install --upgrade pip setuptools wheel
+      
+      # 2. Install Microsoft ODBC Driver 18 for SQL Server
+      curl https://packages.microsoft.com/keys/microsoft.asc | sudo tee /etc/apt/trusted.gpg.d/microsoft.asc
+      curl https://packages.microsoft.com/config/debian/11/prod.list | sudo tee /etc/apt/sources.list.d/mssql-release.list
+      sudo apt-get update
+      sudo ACCEPT_EULA=Y apt-get install -y msodbcsql18
+      
+      # 3. Install Python dependencies and collect static files
+      pip install -r requirements.txt
+      python manage.py collectstatic --no-input
+    startCommand: gunicorn alumni_system.wsgi:application
