@@ -14,16 +14,16 @@ services:
         value: "*"
     # The build script installs the driver and prepares the environment
     buildCommand: |
-      # 1. Update build tools first to prevent "BackendUnavailable"
+      # Force update pip and install setuptools explicitly
       pip install --upgrade pip setuptools wheel
       
-      # 2. Install Microsoft ODBC Driver 18 for SQL Server
+      # Install the SQL Driver
       curl https://packages.microsoft.com/keys/microsoft.asc | sudo tee /etc/apt/trusted.gpg.d/microsoft.asc
       curl https://packages.microsoft.com/config/debian/11/prod.list | sudo tee /etc/apt/sources.list.d/mssql-release.list
       sudo apt-get update
       sudo ACCEPT_EULA=Y apt-get install -y msodbcsql18
       
-      # 3. Install Python dependencies and collect static files
+      # Install everything else
       pip install -r requirements.txt
       python manage.py collectstatic --no-input
     startCommand: gunicorn alumni_system.wsgi:application
