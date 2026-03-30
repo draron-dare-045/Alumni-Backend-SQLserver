@@ -26,4 +26,5 @@ COPY . .
 
 RUN python manage.py collectstatic --no-input
 
-CMD ["gunicorn", "alumni_system.wsgi:application", "--bind", "0.0.0.0:10000"]
+# This runs migrations first, then starts the server
+CMD python manage.py migrate && gunicorn alumni_system.wsgi:application --bind 0.0.0.0:10000
